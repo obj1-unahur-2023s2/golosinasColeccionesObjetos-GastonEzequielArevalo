@@ -1,6 +1,5 @@
 object frutilla {
 	
-	
 }
 
 object chocolate{

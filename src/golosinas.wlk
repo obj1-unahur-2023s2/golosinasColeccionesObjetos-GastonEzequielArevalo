@@ -180,7 +180,7 @@ object pastillaTutiFruti{
 	var esLibreDeGluten = true
 	var gusto = frutilla
 	const listaDeGustos = [frutilla, chocolate, naranja]
-	var posicionDeLaLista = 0
+	var contador = 0
 	
 	method esLibreDeGluten(){
 		return esLibreDeGluten
@@ -200,11 +200,8 @@ object pastillaTutiFruti{
 	}
 	
 	method recibirMordisco(){
-		posicionDeLaLista = posicionDeLaLista + 1
-		gusto = listaDeGustos.get(posicionDeLaLista)
-		if(posicionDeLaLista == 3){
-			posicionDeLaLista = 0
-		}
+		contador = contador + 1
+		gusto = listaDeGustos.get(contador % listaDeGustos.size())
 	}
 }
 

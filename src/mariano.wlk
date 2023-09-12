@@ -29,18 +29,32 @@ object mariano {
 	}
 	
 	method hayGolosinasSinTACC(){
-		bolsaDeGolosinasCompradas.any({golosina => golosina.esLibreDeGluten()})
+		return bolsaDeGolosinasCompradas.any({golosina => golosina.esLibreDeGluten()})
 	}
 	
 	method preciosCuidados(){
-		bolsaDeGolosinasCompradas.all({golosina => golosina.precio() <= 10})
+		return bolsaDeGolosinasCompradas.all({golosina => golosina.precio() <= 10})
 	}
 	
 	method golosinaDeSabor(unSabor){
-		bolsaDeGolosinasCompradas.find({golosina => golosina.gusto() == unSabor})
+		return bolsaDeGolosinasCompradas.find({golosina => golosina.gusto() == unSabor})
 	}
 	
 	method golosinasDeSabor(unSabor){
-		
+		return bolsaDeGolosinasCompradas.filter({golosinas => golosinas.gusto() == unSabor})
 	}
+	
+	method sabores(){
+		return bolsaDeGolosinasCompradas.map({golosinas => golosinas.gusto()}).asSet()
+	}
+	
+	method gustosFaltantes(todosLosSabores){
+		return todosLosSabores.asSet().difference(self.sabores())
+	}
+	
+	method golosinaMasCara(){
+		return bolsaDeGolosinasCompradas.max({gustos => gustos.precio()})
+	}
+	
+	
 }

@@ -2,7 +2,7 @@ import golosinas.*
 import gustos.*
 
 object mariano {
-	var bolsaDeGolosinasCompradas = []
+	const bolsaDeGolosinasCompradas = []
 	
 	method comprar(unaGolosina){
 		bolsaDeGolosinasCompradas.add(unaGolosina)
@@ -13,48 +13,59 @@ object mariano {
 	}
 	
 	method desechar(unaGolosina){
-		bolsaDeGolosinasCompradas.remove(unaGolosina)
+		self.bolsaDeGolosinasCompradas().remove(unaGolosina)
 	}
 	
 	method cantidadDeGolosinas(){
-		return bolsaDeGolosinasCompradas.size()
+		return self.bolsaDeGolosinasCompradas().size()
 	}
 	
 	method tieneLaGolosina(unaGolosina){
-		return bolsaDeGolosinasCompradas.contains(unaGolosina)
+		return self.bolsaDeGolosinasCompradas().contains(unaGolosina)
 	}
 	
 	method probarGolosinas(){
-		bolsaDeGolosinasCompradas.forEach({golosina => golosina.recibirMordisco()})
+		self.bolsaDeGolosinasCompradas().forEach({golosina => golosina.recibirMordisco()})
 	}
 	
 	method hayGolosinasSinTACC(){
-		return bolsaDeGolosinasCompradas.any({golosina => golosina.esLibreDeGluten()})
+		return self.bolsaDeGolosinasCompradas().any({golosina => golosina.esLibreDeGluten()})
 	}
 	
 	method preciosCuidados(){
-		return bolsaDeGolosinasCompradas.all({golosina => golosina.precio() <= 10})
+		return self.bolsaDeGolosinasCompradas().all({golosina => golosina.precio() <= 10})
 	}
 	
 	method golosinaDeSabor(unSabor){
-		return bolsaDeGolosinasCompradas.find({golosina => golosina.gusto() == unSabor})
+		return self.bolsaDeGolosinasCompradas().find({golosina => golosina.gusto() == unSabor})
 	}
 	
 	method golosinasDeSabor(unSabor){
-		return bolsaDeGolosinasCompradas.filter({golosinas => golosinas.gusto() == unSabor})
+		return self.bolsaDeGolosinasCompradas().filter({golosinas => golosinas.gusto() == unSabor})
 	}
 	
 	method sabores(){
-		return bolsaDeGolosinasCompradas.map({golosinas => golosinas.gusto()}).asSet()
+		return self.bolsaDeGolosinasCompradas().map({golosinas => golosinas.gusto()}).asSet()
+	}
+	
+	method golosinaMasCara(){
+		return self.bolsaDeGolosinasCompradas().max({gustos => gustos.precio()})
+	}
+	
+	method pesoGolosinas(){
+		return self.bolsaDeGolosinasCompradas().sum({golosinas => golosinas.peso()})
+	}
+	
+	method golosinasFaltantes(golosinasDeseadas){
+		return golosinasDeseadas.asSet().difference(self.bolsaDeGolosinasCompradas().asSet())
 	}
 	
 	method gustosFaltantes(todosLosSabores){
 		return todosLosSabores.asSet().difference(self.sabores())
 	}
 	
-	method golosinaMasCara(){
-		return bolsaDeGolosinasCompradas.max({gustos => gustos.precio()})
+	method gastoEn(sabor){
+		return self.golosinasDeSabor(sabor).sum({golosina => golosina.precio()})
 	}
-	
 	
 }

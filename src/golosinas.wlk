@@ -2,7 +2,7 @@ import gustos.*
 
 object bombon {
 	const precio = 5
-	var property peso = 15
+	var property peso = 150
 	const gusto = frutilla
 	const esLibreDeGluten = true
 	
@@ -11,7 +11,7 @@ object bombon {
 	}
 	
 	method recibirMordisco(){
-		peso = (peso * 0.8) - 1
+		peso = 0.max(peso * 0.8) - 1
 	}
 	
 	method gusto(){
@@ -117,13 +117,17 @@ object oblea {
 
 object chocolatin {
 	const precio = 0.50
-	const pesoInicial = 250
+	var property pesoInicial = 400
 	var peso = pesoInicial
 	const gusto = chocolate
 	const esLibreDeGluten = false
 	
 	method precio(){
 		return pesoInicial * precio
+	}
+	
+	method peso(){
+		return peso
 	}
 	
 	method recibirMordisco(){
@@ -140,7 +144,7 @@ object chocolatin {
 }
 
 object golosinaBaniada {
-	var golosinaDeBase = oblea
+	var golosinaDeBase = pastillaTutiFruti
 	const precio = 2
 	var peso = 4
 	
@@ -169,14 +173,14 @@ object golosinaBaniada {
 	}
 	
 	method recibirMordisco(){
-		golosinaDeBase.recibirMordisco()
+		self.golosinaDeBase().recibirMordisco()
 		peso = 0.max(peso - 2)
 	}
 }
 
 object pastillaTutiFruti{
-	var presio = 7
-	var property preso = 5
+	var precio = 7
+	var property peso = 5
 	var esLibreDeGluten = true
 	var gusto = frutilla
 	const listaDeGustos = [frutilla, chocolate, naranja]
@@ -188,11 +192,11 @@ object pastillaTutiFruti{
 	
 	method  cambiarEstadoDeGluten(){
 		esLibreDeGluten = not esLibreDeGluten
-		presio = 10
+		precio = 10
 	}
 	
-	method presio(){
-		return presio
+	method precio(){
+		return precio
 	}
 	
 	method gusto(){
